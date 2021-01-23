@@ -23,10 +23,10 @@ md"""
 
 Take a bunch of images with your camera with:
 
-- same ISO
-- same aperture
-- same "picture" (motive + light + ...)
-- changing exposure time / shutter speed
+- same manual ISO
+- same manual aperture
+- same "picture" (motive + light + ...), ideally something white like a sheet of paper
+- changing manual exposure time / shutter speed
 
 Place the RAW images in `01_linear/`.
 """
