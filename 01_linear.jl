@@ -111,7 +111,6 @@ begin
 	scatter(
 		exposure_times,
 		[means[1, :], means[2, :], means[3, :]],
-		dpi=400,
 		labels=["r" "g" "b"],
 		xlabel="exposure time (s)",
 		ylabel="channel mean",
