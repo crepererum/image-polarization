@@ -8,7 +8,7 @@ readonly DARKTABLE_STYLE="linear"
 pushd "$DIR" > /dev/null
 
 echo "=== Clean Old Files ==="
-rm -fv *.tif
+rm -fv ./*.tif
 
 echo "=== RAF -> TIFF ==="
 for f_raf in *.RAF; do
@@ -32,4 +32,12 @@ align_image_stack \
     -C \
     --cor=0.95 \
     -v \
-    *_converted.tif
+    ./*_converted.tif
+images_aligned=(aligned_*.tif)
+images_converted=(*_converted.tif)
+for (( i=0; i<${#images_aligned[*]}; ++i)); do
+    f_aligned="${images_aligned[$i]}"
+    f_converted="${images_converted[$i]}"
+    f_aligned2="$(basename "$f_converted" _converted.tif)_aligned.tif"
+    mv "$f_aligned" "$f_aligned2"
+done
