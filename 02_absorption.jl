@@ -16,6 +16,8 @@ end
 # ╔═╡ 9ba20222-5e57-11eb-1b92-159e51b073c3
 md"""
 # Filter Absorption
+
+In this notebook you will mesaure how much light your camera filter absorpts. This is important for the math in the following notebooks.
 """
 
 # ╔═╡ fbdb2708-5e58-11eb-055a-5d502f6335e1
@@ -23,6 +25,7 @@ md"""
 ## References
 
 - [Wikipedia: Polarizer](https://en.wikipedia.org/wiki/Polarizer)
+- [Wikipedia: Polarizing filter (photography)](https://en.wikipedia.org/wiki/Polarizing_filter_(photography))
 """
 
 # ╔═╡ af328738-5e57-11eb-147c-c995a3f08ea1
@@ -33,6 +36,32 @@ md"""
 # ╔═╡ de219d60-5e57-11eb-2ee9-39772a16514b
 md"""
 ## Input
+
+This assumes that you have a CPL filter (circular polarizing filter) for your camera. These filters normally consist of two pieces:
+
+1. **Linear Polarizer:** This is the actual filter.
+2. **Quarter-wave Plane:** This is due convert the linear polarized light into circular polarized light. This is done because the linear polarized light usually messes up the auto-focus and metering system of the camera.
+
+Take the following 3 photos of the same white sheet of paper with in proper daylight conditions:
+
+- **No Filter:** A photo without any polarizing filter.
+- **Linear Polarizing Filter:** Use your CPL filter in any angle.
+- **Circular Polarizing Filter:** Use your CPL filter backwards. Note that this way the filter usually does not attach properly, so you need to manually hold it.
+
+Make sure that these pictures have:
+
+- **Constant Manual ISO:** Preferrable a lower one for less noisy images.
+- **Constant Manual Aperture:** Ideally a smaller aperture (=large F-stop) to have the whole sheet of paper in focus.
+- **Constant Manual Focus:** Sheet of paper should be focused.
+- **Constant Manual Shutter Speed:** Actual value does not matter too much. You are likely going to need a long exposure time, so make sure to hold the camera still.
+
+Make sure that you do not over-expose any of the pictures (esp. the "no filter" variant). While holding the filter, ensure that you do not cast any shadows on the sheet of paper.
+
+Place the pictures in `02_absorption` and name them `nofilter.RAF`, `linearfilter.RAF` and `circularfilter.RAF`. In your terminal, run:
+
+```bash
+./prepare_images.sh 02_absorption
+```
 """
 
 # ╔═╡ e59c77c2-5e57-11eb-1b81-fb82afbbc27b
@@ -101,13 +130,13 @@ all(absorption_factor_circular .< 1.0)
 
 # ╔═╡ eb8bd0d2-5e58-11eb-33f6-9989bf7a3892
 md"""
-Even stronger, the irradiance after a linear filter for polarized light of a relative angle $\theta_i$ and an irradiance of $I_0$ is:
+Even stronger, the irradiance after a linear filter for polarized light of a relative angle $\theta$ and an irradiance of $I_0$ is:
 
-$I = I_0 \cos^2 \theta_i$
+$I = I_0 \cos^2 \theta$
 
 So for all possible inputs angles this is:
 
-$\int_0^\pi \frac{I_0 \cos^2\theta_i}{\pi} d\theta_i = \frac{I_0}{\pi} \int_0^\pi \cos^2\theta_id\theta_i = \frac{I_0}{\pi} \frac{\pi}{2} = \frac{I_0}{2}$
+$\int_0^\pi \frac{I_0 \cos^2\theta}{\pi} \,\mathrm{d}\theta = \frac{I_0}{\pi} \int_0^\pi \cos^2\theta \,\mathrm{d} \theta = \frac{I_0}{\pi} \frac{\pi}{2} = \frac{I_0}{2}$
 
 Therefore the absorption factor should be less than 0.5 for all channels (or equal to 0.5 for a perfect filter):
 """
