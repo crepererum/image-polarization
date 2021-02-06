@@ -183,10 +183,16 @@ function plot_image_histogram(img)
 	edges_b, counts_b = imhist(channelview(img)[3, :, :], n_bins, 0.0, 1.0)
 	bar(
 		[edges_r, edges_g, edges_b],
-		[counts_r[1:end-1], counts_g[1:end-1], counts_b[1:end-1]],
+		[
+			counts_r[1:end-1] / length(img),
+			counts_g[1:end-1] / length(img),
+			counts_b[1:end-1] / length(img),
+		],
 		labels=["red" "green" "blue"],
 		xlabel="relative delta",
-		ylabel="count",
+		ylabel="fraction",
+		yticks=0:0.2:1,
+		ylims=(0, 1),
 		bar_edges=true,
 		seriescolor=["red" "green" "blue"],
 		layout=(3, 1),
